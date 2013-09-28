@@ -1,4 +1,9 @@
-angular.module("ui.bootstrap", ["ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdownToggle","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
+angular.module("ui.bootstrap", ["ui.bootstrap.transition", "ui.bootstrap.collapse", "ui.bootstrap.accordion", "ui.bootstrap.alert", "ui.bootstrap.bindHtml", "ui.bootstrap.buttons", "ui.bootstrap.carousel", "ui.bootstrap.position", "ui.bootstrap.datepicker", "ui.bootstrap.dropdownToggle", "ui.bootstrap.modal", "ui.bootstrap.pagination", "ui.bootstrap.tooltip", "ui.bootstrap.popover", "ui.bootstrap.progressbar", "ui.bootstrap.rating", "ui.bootstrap.tabs", "ui.bootstrap.timepicker", "ui.bootstrap.typeahead"])
+    .config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+
+    });
 angular.module('ui.bootstrap.transition', [])
 
 /**
@@ -651,10 +656,10 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
 <div ng-controller="CarouselDemoCtrl">
   <carousel>
     <slide ng-repeat="slide in slides" active="slide.active">
-      <img ng-src="{{slide.image}}" style="margin:auto;">
+      <img ng-src="{[{slide.image}]}" style="margin:auto;">
       <div class="carousel-caption">
-        <h4>Slide {{$index}}</h4>
-        <p>{{slide.text}}</p>
+        <h4>Slide {[{$index}]}</h4>
+        <p>{[{slide.text}]}</p>
       </div>
     </slide>
   </carousel>
@@ -663,7 +668,7 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
       <ul>
         <li ng-repeat="slide in slides">
           <button class="btn btn-mini" ng-class="{'btn-info': !slide.active, 'btn-success': slide.active}" ng-disabled="slide.active" ng-click="slide.active = true">select</button>
-          {{$index}}: {{slide.text}}
+          {[{$index}]}: {[{slide.text}]}
         </li>
       </ul>
       <a class="btn" ng-click="addSlide()">Add Slide</a>
@@ -1282,7 +1287,7 @@ function ($compile, $parse, $document, $position, dateFilter, datepickerPopupCon
      <a class="dropdown-toggle">My Dropdown Menu</a>
      <ul class="dropdown-menu">
        <li ng-repeat="choice in dropChoices">
-         <a ng-href="{{choice.href}}">{{choice.text}}</a>
+         <a ng-href="{[{choice.href}]}">{[{choice.text}]}</a>
        </li>
      </ul>
    </li>
@@ -2558,10 +2563,10 @@ function TabsetCtrl($scope, $element) {
           Second Tab, with alert callback and html heading!
         </tab>
         <tab ng-repeat="item in items"
-          heading="{{item.title}}"
+          heading="{[{item.title}]}"
           disabled="item.disabled"
           active="item.active">
-          {{item.content}}
+          {[{item.content}]}
         </tab>
       </tabset>
     </div>

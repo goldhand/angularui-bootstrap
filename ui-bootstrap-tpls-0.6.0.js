@@ -1,4 +1,8 @@
-angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdownToggle","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
+angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdownToggle","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"])
+    .config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('{[{');
+        $interpolateProvider.endSymbol('}]}');
+    });
 angular.module("ui.bootstrap.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/popup.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset-titles.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
 angular.module('ui.bootstrap.transition', [])
 
@@ -652,10 +656,10 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
 <div ng-controller="CarouselDemoCtrl">
   <carousel>
     <slide ng-repeat="slide in slides" active="slide.active">
-      <img ng-src="{{slide.image}}" style="margin:auto;">
+      <img ng-src="{[{slide.image}]}" style="margin:auto;">
       <div class="carousel-caption">
-        <h4>Slide {{$index}}</h4>
-        <p>{{slide.text}}</p>
+        <h4>Slide {[{$index}]}</h4>
+        <p>{[{slide.text}]}</p>
       </div>
     </slide>
   </carousel>
@@ -664,7 +668,7 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
       <ul>
         <li ng-repeat="slide in slides">
           <button class="btn btn-mini" ng-class="{'btn-info': !slide.active, 'btn-success': slide.active}" ng-disabled="slide.active" ng-click="slide.active = true">select</button>
-          {{$index}}: {{slide.text}}
+          {[{$index}]}: {[{slide.text}]}
         </li>
       </ul>
       <a class="btn" ng-click="addSlide()">Add Slide</a>
@@ -1283,7 +1287,7 @@ function ($compile, $parse, $document, $position, dateFilter, datepickerPopupCon
      <a class="dropdown-toggle">My Dropdown Menu</a>
      <ul class="dropdown-menu">
        <li ng-repeat="choice in dropChoices">
-         <a ng-href="{{choice.href}}">{{choice.text}}</a>
+         <a ng-href="{[{choice.href}]}">{[{choice.text}]}</a>
        </li>
      </ul>
    </li>
@@ -2559,10 +2563,10 @@ function TabsetCtrl($scope, $element) {
           Second Tab, with alert callback and html heading!
         </tab>
         <tab ng-repeat="item in items"
-          heading="{{item.title}}"
+          heading="{[{item.title}]}"
           disabled="item.disabled"
           active="item.active">
-          {{item.content}}
+          {[{item.content}]}
         </tab>
       </tabset>
     </div>
@@ -3310,7 +3314,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 angular.module("template/accordion/accordion-group.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/accordion/accordion-group.html",
     "<div class=\"accordion-group\">\n" +
-    "  <div class=\"accordion-heading\" ><a class=\"accordion-toggle\" ng-click=\"isOpen = !isOpen\" accordion-transclude=\"heading\">{{heading}}</a></div>\n" +
+    "  <div class=\"accordion-heading\" ><a class=\"accordion-toggle\" ng-click=\"isOpen = !isOpen\" accordion-transclude=\"heading\">{[{heading}]}</a></div>\n" +
     "  <div class=\"accordion-body\" collapse=\"!isOpen\">\n" +
     "    <div class=\"accordion-inner\" ng-transclude></div>  </div>\n" +
     "</div>");
@@ -3361,19 +3365,19 @@ angular.module("template/datepicker/datepicker.html", []).run(["$templateCache",
     "  <thead>\n" +
     "    <tr class=\"text-center\">\n" +
     "      <th><button type=\"button\" class=\"btn pull-left\" ng-click=\"move(-1)\"><i class=\"icon-chevron-left\"></i></button></th>\n" +
-    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn btn-block\" ng-click=\"toggleMode()\"><strong>{{title}}</strong></button></th>\n" +
+    "      <th colspan=\"{[{rows[0].length - 2 + showWeekNumbers}]}\"><button type=\"button\" class=\"btn btn-block\" ng-click=\"toggleMode()\"><strong>{[{title}]}</strong></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn pull-right\" ng-click=\"move(1)\"><i class=\"icon-chevron-right\"></i></button></th>\n" +
     "    </tr>\n" +
     "    <tr class=\"text-center\" ng-show=\"labels.length > 0\">\n" +
     "      <th ng-show=\"showWeekNumbers\">#</th>\n" +
-    "      <th ng-repeat=\"label in labels\">{{label}}</th>\n" +
+    "      <th ng-repeat=\"label in labels\">{[{label}]}</th>\n" +
     "    </tr>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
     "    <tr ng-repeat=\"row in rows\">\n" +
-    "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{{ getWeekNumber(row) }}</em></td>\n" +
+    "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{[{ getWeekNumber(row) }]}</em></td>\n" +
     "      <td ng-repeat=\"dt in row\" class=\"text-center\">\n" +
-    "        <button type=\"button\" style=\"width:100%;\" class=\"btn\" ng-class=\"{'btn-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{muted: dt.secondary}\">{{dt.label}}</span></button>\n" +
+    "        <button type=\"button\" style=\"width:100%;\" class=\"btn\" ng-class=\"{'btn-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{muted: dt.secondary}\">{[{dt.label}]}</span></button>\n" +
     "      </td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
@@ -3404,14 +3408,14 @@ angular.module("template/modal/backdrop.html", []).run(["$templateCache", functi
 
 angular.module("template/modal/window.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/modal/window.html",
-    "<div class=\"modal fade {{ windowClass }}\" ng-class=\"{in: animate}\" ng-style=\"{'z-index': 1050 + index*10}\" ng-transclude></div>");
+    "<div class=\"modal fade {[{ windowClass }]}\" ng-class=\"{in: animate}\" ng-style=\"{'z-index': 1050 + index*10}\" ng-transclude></div>");
 }]);
 
 angular.module("template/pagination/pager.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/pagination/pager.html",
     "<div class=\"pager\">\n" +
     "  <ul>\n" +
-    "    <li ng-repeat=\"page in pages\" ng-class=\"{disabled: page.disabled, previous: page.previous, next: page.next}\"><a ng-click=\"selectPage(page.number)\">{{page.text}}</a></li>\n" +
+    "    <li ng-repeat=\"page in pages\" ng-class=\"{disabled: page.disabled, previous: page.previous, next: page.next}\"><a ng-click=\"selectPage(page.number)\">{[{page.text}]}</a></li>\n" +
     "  </ul>\n" +
     "</div>\n" +
     "");
@@ -3420,7 +3424,7 @@ angular.module("template/pagination/pager.html", []).run(["$templateCache", func
 angular.module("template/pagination/pagination.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/pagination/pagination.html",
     "<div class=\"pagination\"><ul>\n" +
-    "  <li ng-repeat=\"page in pages\" ng-class=\"{active: page.active, disabled: page.disabled}\"><a ng-click=\"selectPage(page.number)\">{{page.text}}</a></li>\n" +
+    "  <li ng-repeat=\"page in pages\" ng-class=\"{active: page.active, disabled: page.disabled}\"><a ng-click=\"selectPage(page.number)\">{[{page.text}]}</a></li>\n" +
     "  </ul>\n" +
     "</div>\n" +
     "");
@@ -3428,7 +3432,7 @@ angular.module("template/pagination/pagination.html", []).run(["$templateCache",
 
 angular.module("template/tooltip/tooltip-html-unsafe-popup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/tooltip/tooltip-html-unsafe-popup.html",
-    "<div class=\"tooltip {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+    "<div class=\"tooltip {[{placement}]}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
     "  <div class=\"tooltip-arrow\"></div>\n" +
     "  <div class=\"tooltip-inner\" ng-bind-html-unsafe=\"content\"></div>\n" +
     "</div>\n" +
@@ -3437,7 +3441,7 @@ angular.module("template/tooltip/tooltip-html-unsafe-popup.html", []).run(["$tem
 
 angular.module("template/tooltip/tooltip-popup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/tooltip/tooltip-popup.html",
-    "<div class=\"tooltip {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+    "<div class=\"tooltip {[{placement}]}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
     "  <div class=\"tooltip-arrow\"></div>\n" +
     "  <div class=\"tooltip-inner\" ng-bind=\"content\"></div>\n" +
     "</div>\n" +
@@ -3446,7 +3450,7 @@ angular.module("template/tooltip/tooltip-popup.html", []).run(["$templateCache",
 
 angular.module("template/popover/popover.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/popover/popover.html",
-    "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+    "<div class=\"popover {[{placement}]}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
     "  <div class=\"arrow\"></div>\n" +
     "\n" +
     "  <div class=\"popover-inner\">\n" +
@@ -3483,7 +3487,7 @@ angular.module("template/tabs/pane.html", []).run(["$templateCache", function($t
 angular.module("template/tabs/tab.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/tabs/tab.html",
     "<li ng-class=\"{active: active, disabled: disabled}\">\n" +
-    "  <a ng-click=\"select()\" tab-heading-transclude>{{heading}}</a>\n" +
+    "  <a ng-click=\"select()\" tab-heading-transclude>{[{heading}]}</a>\n" +
     "</li>\n" +
     "");
 }]);
@@ -3493,7 +3497,7 @@ angular.module("template/tabs/tabs.html", []).run(["$templateCache", function($t
     "<div class=\"tabbable\">\n" +
     "  <ul class=\"nav nav-tabs\">\n" +
     "    <li ng-repeat=\"pane in panes\" ng-class=\"{active:pane.selected}\">\n" +
-    "      <a ng-click=\"select(pane)\">{{pane.heading}}</a>\n" +
+    "      <a ng-click=\"select(pane)\">{[{pane.heading}]}</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "  <div class=\"tab-content\" ng-transclude></div>\n" +
@@ -3503,7 +3507,7 @@ angular.module("template/tabs/tabs.html", []).run(["$templateCache", function($t
 
 angular.module("template/tabs/tabset-titles.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/tabs/tabset-titles.html",
-    "<ul class=\"nav {{type && 'nav-' + type}}\" ng-class=\"{'nav-stacked': vertical}\">\n" +
+    "<ul class=\"nav {[{type && 'nav-' + type}]}\" ng-class=\"{'nav-stacked': vertical}\">\n" +
     "</ul>\n" +
     "");
 }]);
@@ -3538,7 +3542,7 @@ angular.module("template/timepicker/timepicker.html", []).run(["$templateCache",
     "		<td class=\"control-group\" ng-class=\"{'error': invalidHours}\"><input type=\"text\" ng-model=\"hours\" ng-change=\"updateHours()\" class=\"span1 text-center\" ng-mousewheel=\"incrementHours()\" ng-readonly=\"readonlyInput\" maxlength=\"2\" /></td>\n" +
     "		<td>:</td>\n" +
     "		<td class=\"control-group\" ng-class=\"{'error': invalidMinutes}\"><input type=\"text\" ng-model=\"minutes\" ng-change=\"updateMinutes()\" class=\"span1 text-center\" ng-readonly=\"readonlyInput\" maxlength=\"2\"></td>\n" +
-    "		<td ng-show=\"showMeridian\"><button type=\"button\" ng-click=\"toggleMeridian()\" class=\"btn text-center\">{{meridian}}</button></td>\n" +
+    "		<td ng-show=\"showMeridian\"><button type=\"button\" ng-click=\"toggleMeridian()\" class=\"btn text-center\">{[{meridian}]}</button></td>\n" +
     "	</tr>\n" +
     "	<tr class=\"text-center\">\n" +
     "		<td><a ng-click=\"decrementHours()\" class=\"btn btn-link\"><i class=\"icon-chevron-down\"></i></a></td>\n" +
